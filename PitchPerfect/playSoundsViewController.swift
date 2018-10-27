@@ -7,24 +7,48 @@
 //
 
 import UIKit
+import AVFoundation
 
 class playSoundsViewController: UIViewController {
-    var x:URL!
+    var audioUrl:URL!
+    var audioEngine:AVAudioEngine!
+    var audioNode:AVAudioPlayerNode!
+    var audioFile:AVAudioFile!
+    var stopTimer:Timer!
+    @IBOutlet weak var snailBtn: UIButton!
+    @IBOutlet weak var rabbitBtn: UIButton!
+    @IBOutlet weak var highPitchBtn: UIButton!
+    @IBOutlet weak var lowPitchBtn: UIButton!
+    @IBOutlet weak var echoBtn: UIButton!
+    @IBOutlet weak var reverbBtn: UIButton!
+    @IBOutlet weak var stopBtn: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        configureUI(playing: false)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func configureUI(playing:Bool){
+        if playing{
+            snailBtn.isEnabled=false
+            rabbitBtn.isEnabled=false
+            highPitchBtn.isEnabled=false
+            lowPitchBtn.isEnabled=false
+            echoBtn.isEnabled=false
+            reverbBtn.isEnabled=false
+            stopBtn.isEnabled=true
+        }
+        
+        if !playing{
+            snailBtn.isEnabled=true
+            rabbitBtn.isEnabled=true
+            highPitchBtn.isEnabled=true
+            lowPitchBtn.isEnabled=true
+            echoBtn.isEnabled=true
+            reverbBtn.isEnabled=true
+            stopBtn.isEnabled=false
+        }
     }
-    */
 
 }

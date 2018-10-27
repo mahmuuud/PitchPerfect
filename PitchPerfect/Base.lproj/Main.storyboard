@@ -128,6 +128,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cpH-tb-TeN"/>
                     </view>
+                    <connections>
+                        <outlet property="echoBtn" destination="p9K-e4-o3e" id="46y-bL-Ono"/>
+                        <outlet property="highPitchBtn" destination="IwG-31-c8L" id="myI-AW-LXX"/>
+                        <outlet property="lowPitchBtn" destination="AWG-QL-MPr" id="jgj-wh-xyc"/>
+                        <outlet property="rabbitBtn" destination="wrq-yS-rmt" id="zLb-1e-Vpz"/>
+                        <outlet property="reverbBtn" destination="VWo-Xm-pE6" id="tqc-4W-4yq"/>
+                        <outlet property="snailBtn" destination="d2O-Fc-YIp" id="o1W-Rq-6fe"/>
+                        <outlet property="stopBtn" destination="Lyq-cF-cPY" id="xMV-CL-FoI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ab6-se-GCn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

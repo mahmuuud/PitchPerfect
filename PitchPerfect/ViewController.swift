@@ -73,11 +73,13 @@ class ViewController: UIViewController,AVAudioRecorderDelegate {
         if segue.identifier=="stop recording"{
             let playVC=segue.destination as! playSoundsViewController
             if let x=sender{
-                playVC.x=x as? URL
+                playVC.audioUrl=x as? URL
             }
             else{
                 let alert = UIAlertController(title: "ERROR", message: "File not Found", preferredStyle: .alert)
-                self.present(alert,animated: true)            }
+                self.present(alert,animated: true)
+                
+            }
         }
     }
 
