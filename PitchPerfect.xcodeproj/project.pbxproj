@@ -12,6 +12,7 @@
 		0C35943D2183C98F0013350B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C35943B2183C98F0013350B /* Main.storyboard */; };
 		0C35943F2183C9920013350B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C35943E2183C9920013350B /* Assets.xcassets */; };
 		0C3594422183C9920013350B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C3594402183C9920013350B /* LaunchScreen.storyboard */; };
+		0C5F56E521840D2F001FFC25 /* playSoundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F56E421840D2F001FFC25 /* playSoundsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		0C35943E2183C9920013350B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0C3594412183C9920013350B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0C3594432183C9920013350B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0C5F56E421840D2F001FFC25 /* playSoundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playSoundsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				0C3594372183C98F0013350B /* AppDelegate.swift */,
 				0C3594392183C98F0013350B /* ViewController.swift */,
+				0C5F56E421840D2F001FFC25 /* playSoundsViewController.swift */,
 				0C35943B2183C98F0013350B /* Main.storyboard */,
 				0C35943E2183C9920013350B /* Assets.xcassets */,
 				0C3594402183C9920013350B /* LaunchScreen.storyboard */,
@@ -135,6 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C5F56E521840D2F001FFC25 /* playSoundsViewController.swift in Sources */,
 				0C35943A2183C98F0013350B /* ViewController.swift in Sources */,
 				0C3594382183C98F0013350B /* AppDelegate.swift in Sources */,
 			);

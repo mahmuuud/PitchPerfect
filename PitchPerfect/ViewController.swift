@@ -23,7 +23,7 @@ class ViewController: UIViewController,AVAudioRecorderDelegate {
     }
     @IBAction func recordAudio(_ sender: Any) {
         configureUI(recording: true)
-        let x=NSSearchPathForDirectoriesInDomains(.userDirectory, .userDomainMask, true)[0] as String
+        let x=NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         let fileName="new.wav"
         let path=[x,fileName]
         let filePath=URL(string:path.joined(separator: "/"))
@@ -55,6 +55,29 @@ class ViewController: UIViewController,AVAudioRecorderDelegate {
         if !recording{
             recordBtn.isEnabled=true
             stopBtn.isEnabled=false
+        }
+    }
+    
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        if flag{
+            performSegue(withIdentifier: "stop recording", sender: audioRecorder.url)
+        }
+        
+        else{
+            let alert = UIAlertController(title: "ERROR", message: "Error in transition between screens", preferredStyle: .alert)
+            self.present(alert,animated: true)
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier=="stop recording"{
+            let playVC=segue.destination as! playSoundsViewController
+            if let x=sender{
+                playVC.x=x as? URL
+            }
+            else{
+                let alert = UIAlertController(title: "ERROR", message: "File not Found", preferredStyle: .alert)
+                self.present(alert,animated: true)            }
         }
     }
 
