@@ -13,7 +13,8 @@ extension playSoundsViewController: AVAudioPlayerDelegate {
     
     func setupAudio(){
         do{
-            try audioFile=AVAudioFile(forReading: audioUrl!)
+             audioFile=try AVAudioFile(forReading: audioUrl as URL)
+            print(audioFile)
         }
         catch{
             let alert = UIAlertController(title: "ERROR", message: "File not Found", preferredStyle: .alert)
@@ -22,13 +23,12 @@ extension playSoundsViewController: AVAudioPlayerDelegate {
         }
     }
     
-    func playback(pitch:Float?=nil,rate:Float?=nil,echo:Bool=false,reverb:Bool=false){
+    func playBack(pitch:Float?=nil,rate:Float?=nil,echo:Bool=false,reverb:Bool=false){
         audioEngine=AVAudioEngine()
-        audioNode=AVAudioPlayerNode()
-        audioEngine.attach(audioNode)
+        audioPlayerNode=AVAudioPlayerNode()
+        audioEngine.attach(audioPlayerNode)
         
         let pitchNode=AVAudioUnitTimePitch()
-        
         if let pitch=pitch{
             pitchNode.pitch=pitch
         }
@@ -46,45 +46,61 @@ extension playSoundsViewController: AVAudioPlayerDelegate {
         reverbNode.loadFactoryPreset(.cathedral)
         reverbNode.wetDryMix=50
         audioEngine.attach(reverbNode)
-        
-        if echo && reverb{
-            connectAudioNodes(echoNode,audioNode,reverbNode,audioEngine.outputNode)
+        if echo  && reverb  {
+            connectAudioNodes(audioPlayerNode, pitchNode, echoNode, reverbNode, audioEngine.outputNode)
         }
-        
         if echo{
-            connectAudioNodes(echoNode,audioNode,audioEngine.outputNode)
+            connectAudioNodes(audioPlayerNode,pitchNode,echoNode,audioEngine.outputNode)
         }
         
         if reverb{
-            connectAudioNodes(reverbNode,audioNode,audioEngine.outputNode)
+            connectAudioNodes(audioPlayerNode,pitchNode,reverbNode,audioEngine.outputNode)
+        }
+        else{
+            connectAudioNodes(audioPlayerNode,pitchNode,audioEngine.outputNode)
         }
         
-        audioNode.stop()
-        audioNode.scheduleFile(audioFile,at:nil)
-        
-        var delayInSeconds: Double = 0
-        if let lastRenderTime = self.audioNode.lastRenderTime, let playerTime = self.audioNode.playerTime(forNodeTime: lastRenderTime) {
+        audioPlayerNode.stop()
+        audioPlayerNode.scheduleFile(audioFile, at: nil) {
             
-            if let rate = rate {
-                delayInSeconds = Double(self.audioFile.length - playerTime.sampleTime) / Double(self.audioFile.processingFormat.sampleRate) / Double(rate)
-            } else {
-                delayInSeconds = Double(self.audioFile.length - playerTime.sampleTime) / Double(self.audioFile.processingFormat.sampleRate)
+            var delayInSeconds: Double = 0
+            
+            if let lastRenderTime = self.audioPlayerNode.lastRenderTime, let playerTime = self.audioPlayerNode.playerTime(forNodeTime: lastRenderTime) {
+                
+                if let rate = rate {
+                    delayInSeconds = Double(self.audioFile.length - playerTime.sampleTime) / Double(self.audioFile.processingFormat.sampleRate) / Double(rate)
+                } else {
+                    delayInSeconds = Double(self.audioFile.length - playerTime.sampleTime) / Double(self.audioFile.processingFormat.sampleRate)
+                }
             }
-        }
-        
-        self.stopTimer=Timer(timeInterval: delayInSeconds, target: self, selector: #selector(playSoundsViewController.stopAudio), userInfo: nil, repeats: false)
-        RunLoop.main.add(stopTimer!, forMode: RunLoop.Mode.default)
-        
+            self.stopTimer=Timer(timeInterval: delayInSeconds, target: self, selector: #selector(playSoundsViewController.stopAudio), userInfo: nil, repeats: false)
+            RunLoop.main.add(self.stopTimer, forMode: RunLoop.Mode.default)
+    }
         do{
             try audioEngine.start()
-            
         }
         catch{
-            let alert = UIAlertController(title: "ERROR", message: "Error Playing", preferredStyle: .alert)
+            let alert = UIAlertController(title: "ERROR", message: "File not Found", preferredStyle: .alert)
             self.present(alert,animated: true)
         }
-        audioNode.play()
-        configureUI(playing: true)
+        
+        audioPlayerNode.play()
+        
+    }
+    
+    @objc func stopAudio(){
+        if let audioPlayerNode=audioPlayerNode{
+            audioPlayerNode.stop()
+        }
+        
+        if let stopTimer=stopTimer{
+            stopTimer.invalidate()
+        }
+        configureUI(playing: false)
+        if let audioEngine=audioEngine{
+            audioEngine.stop()
+            audioEngine.reset()
+        }
     }
     
     func connectAudioNodes(_ nodes: AVAudioNode...) {
@@ -93,22 +109,6 @@ extension playSoundsViewController: AVAudioPlayerDelegate {
         }
     }
     
-    @objc func stopAudio(){
-        configureUI(playing: false)
-        if let audioNode=audioNode{
-            audioNode.stop()
-        }
-        
-        if let _=stopTimer{
-            stopTimer.invalidate()
-        }
-        
-        if let audioEngine=audioEngine{
-            audioEngine.stop()
-            audioEngine.reset()
-        }
-    }
-    
-    
 
 }
+

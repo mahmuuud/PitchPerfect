@@ -12,7 +12,7 @@ import AVFoundation
 class playSoundsViewController: UIViewController {
     var audioUrl:URL!
     var audioEngine:AVAudioEngine!
-    var audioNode:AVAudioPlayerNode!
+    var audioPlayerNode:AVAudioPlayerNode!
     var audioFile:AVAudioFile!
     var stopTimer:Timer!
     @IBOutlet weak var snailBtn: UIButton!
@@ -20,15 +20,46 @@ class playSoundsViewController: UIViewController {
     @IBOutlet weak var highPitchBtn: UIButton!
     @IBOutlet weak var lowPitchBtn: UIButton!
     @IBOutlet weak var echoBtn: UIButton!
+    @IBOutlet weak var stop: UIButton!
     @IBOutlet weak var reverbBtn: UIButton!
-    @IBOutlet weak var stopBtn: UIButton!
+    
+    
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupAudio()
         configureUI(playing: false)
     }
     
+
+    @IBAction func play(sender:UIButton){
+        configureUI(playing: true)
+        switch sender {
+        case snailBtn:
+            playBack(rate:0.5)
+        case rabbitBtn:
+            playBack(rate:1.5)
+        case highPitchBtn:
+            playBack(pitch:1000)
+        case lowPitchBtn:
+            playBack(pitch:-1000)
+        case echoBtn:
+            playBack(echo:true)
+        case reverbBtn:
+            playBack(reverb:true)
+        default:
+            let alert = UIAlertController(title: "ERROR", message: "Error applying effect", preferredStyle: .alert)
+            self.present(alert,animated: true)
+        }
+    }
+    
+    @IBAction func stopPlaying(_ sender: Any) {
+        stopAudio()
+        configureUI(playing: false)
+    }
+
     func configureUI(playing:Bool){
         if playing{
             snailBtn.isEnabled=false
@@ -37,9 +68,9 @@ class playSoundsViewController: UIViewController {
             lowPitchBtn.isEnabled=false
             echoBtn.isEnabled=false
             reverbBtn.isEnabled=false
-            stopBtn.isEnabled=true
+            stop.isEnabled=true
         }
-        
+
         if !playing{
             snailBtn.isEnabled=true
             rabbitBtn.isEnabled=true
@@ -47,7 +78,7 @@ class playSoundsViewController: UIViewController {
             lowPitchBtn.isEnabled=true
             echoBtn.isEnabled=true
             reverbBtn.isEnabled=true
-            stopBtn.isEnabled=false
+            stop.isEnabled=false
         }
     }
 

@@ -73,10 +73,16 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2O-Fc-YIp" userLabel="snailBtn">
                                                 <rect key="frame" x="0.0" y="0.0" width="171.5" height="171.5"/>
                                                 <state key="normal" image="Slow"/>
+                                                <connections>
+                                                    <action selector="playWithSender:" destination="e7w-LF-f4v" eventType="touchUpInside" id="Ygf-x3-e7Z"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wrq-yS-rmt" userLabel="rabbitBtn">
                                                 <rect key="frame" x="171.5" y="0.0" width="171.5" height="171.5"/>
                                                 <state key="normal" image="Fast"/>
+                                                <connections>
+                                                    <action selector="playWithSender:" destination="e7w-LF-f4v" eventType="touchUpInside" id="LBp-O8-6Uz"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -86,10 +92,16 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IwG-31-c8L" userLabel="highPitchBtn">
                                                 <rect key="frame" x="0.0" y="0.0" width="171.5" height="172"/>
                                                 <state key="normal" image="HighPitch"/>
+                                                <connections>
+                                                    <action selector="playWithSender:" destination="e7w-LF-f4v" eventType="touchUpInside" id="FKj-fr-K5i"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AWG-QL-MPr" userLabel="lowPitchBtn">
                                                 <rect key="frame" x="171.5" y="0.0" width="171.5" height="172"/>
                                                 <state key="normal" image="LowPitch"/>
+                                                <connections>
+                                                    <action selector="playWithSender:" destination="e7w-LF-f4v" eventType="touchUpInside" id="G9E-oD-vf4"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -99,10 +111,16 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p9K-e4-o3e" userLabel="echoBtn">
                                                 <rect key="frame" x="0.0" y="0.0" width="171.5" height="171.5"/>
                                                 <state key="normal" image="Echo"/>
+                                                <connections>
+                                                    <action selector="playWithSender:" destination="e7w-LF-f4v" eventType="touchUpInside" id="FG7-W6-XQI"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWo-Xm-pE6" userLabel="reverbBtn">
                                                 <rect key="frame" x="171.5" y="0.0" width="171.5" height="171.5"/>
                                                 <state key="normal" image="Reverb"/>
+                                                <connections>
+                                                    <action selector="playWithSender:" destination="e7w-LF-f4v" eventType="touchUpInside" id="JjF-2h-16Y"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -115,6 +133,9 @@
                                     <constraint firstAttribute="height" constant="64" id="b4O-Pa-iRV"/>
                                 </constraints>
                                 <state key="normal" image="Stop"/>
+                                <connections>
+                                    <action selector="stopPlaying:" destination="e7w-LF-f4v" eventType="touchUpInside" id="rxZ-6m-hWD"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -129,13 +150,13 @@
                         <viewLayoutGuide key="safeArea" id="cpH-tb-TeN"/>
                     </view>
                     <connections>
-                        <outlet property="echoBtn" destination="p9K-e4-o3e" id="46y-bL-Ono"/>
-                        <outlet property="highPitchBtn" destination="IwG-31-c8L" id="myI-AW-LXX"/>
-                        <outlet property="lowPitchBtn" destination="AWG-QL-MPr" id="jgj-wh-xyc"/>
-                        <outlet property="rabbitBtn" destination="wrq-yS-rmt" id="zLb-1e-Vpz"/>
-                        <outlet property="reverbBtn" destination="VWo-Xm-pE6" id="tqc-4W-4yq"/>
-                        <outlet property="snailBtn" destination="d2O-Fc-YIp" id="o1W-Rq-6fe"/>
-                        <outlet property="stopBtn" destination="Lyq-cF-cPY" id="xMV-CL-FoI"/>
+                        <outlet property="echoBtn" destination="p9K-e4-o3e" id="yTG-f0-bJ4"/>
+                        <outlet property="highPitchBtn" destination="IwG-31-c8L" id="Ls7-je-VcM"/>
+                        <outlet property="lowPitchBtn" destination="AWG-QL-MPr" id="gED-ea-Dxq"/>
+                        <outlet property="rabbitBtn" destination="wrq-yS-rmt" id="nhw-ks-IpJ"/>
+                        <outlet property="reverbBtn" destination="VWo-Xm-pE6" id="pxW-9n-MmR"/>
+                        <outlet property="snailBtn" destination="d2O-Fc-YIp" id="7T9-eR-yHo"/>
+                        <outlet property="stop" destination="Lyq-cF-cPY" id="dmL-1F-L02"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ab6-se-GCn" userLabel="First Responder" sceneMemberID="firstResponder"/>
