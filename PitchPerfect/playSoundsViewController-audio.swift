@@ -80,8 +80,9 @@ extension playSoundsViewController: AVAudioPlayerDelegate {
             try audioEngine.start()
         }
         catch{
-            let alert = UIAlertController(title: "ERROR", message: "File not Found", preferredStyle: .alert)
+            let alert = UIAlertController(title: "ERROR", message: "File cannot be played", preferredStyle: .alert)
             self.present(alert,animated: true)
+            return
         }
         
         audioPlayerNode.play()

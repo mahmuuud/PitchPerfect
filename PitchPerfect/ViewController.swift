@@ -23,14 +23,14 @@ class ViewController: UIViewController,AVAudioRecorderDelegate {
     }
     @IBAction func recordAudio(_ sender: Any) {
         configureUI(recording: true)
-        let x=NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let dirPath=NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         let fileName="new.wav"
-        let path=[x,fileName]
+        let path=[dirPath,fileName]
         let filePath=NSURL.fileURL(withPathComponents: path)
-        let s=AVAudioSession.sharedInstance()
-        try! s.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+        let audioSession=AVAudioSession.sharedInstance()
+        try! audioSession.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
         try! audioRecorder=AVAudioRecorder(url: filePath!, settings: [:])
-        try! s.setActive(true, options: .notifyOthersOnDeactivation)
+        try! audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         audioRecorder.delegate=self
         audioRecorder.isMeteringEnabled=true
         audioRecorder.prepareToRecord()
@@ -72,8 +72,8 @@ class ViewController: UIViewController,AVAudioRecorderDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier=="stop recording"{
             let playVC=segue.destination as! playSoundsViewController
-            if let x=sender{
-                playVC.audioUrl=(x as! URL)
+            if let sender=sender as? URL{
+                playVC.audioUrl=sender
             }
             else{
                 let alert = UIAlertController(title: "ERROR", message: "File not Found", preferredStyle: .alert)

@@ -23,17 +23,14 @@ class playSoundsViewController: UIViewController {
     @IBOutlet weak var stop: UIButton!
     @IBOutlet weak var reverbBtn: UIButton!
     
-    
-    
-    
-    
+    //MARK: functions
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAudio()
         configureUI(playing: false)
     }
     
-
+    //MARK: play function
     @IBAction func play(sender:UIButton){
         configureUI(playing: true)
         switch sender {
@@ -55,11 +52,12 @@ class playSoundsViewController: UIViewController {
         }
     }
     
+    //MARK:stop playing function
     @IBAction func stopPlaying(_ sender: Any) {
         stopAudio()
         configureUI(playing: false)
     }
-
+    //MARK: UI configuration Function
     func configureUI(playing:Bool){
         if playing{
             snailBtn.isEnabled=false
